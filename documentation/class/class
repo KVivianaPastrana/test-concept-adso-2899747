@@ -1,0 +1,80 @@
+@startuml
+title Veterinary Management System – Class Diagram (IDs only)
+
+class client {
+  + id
+}
+
+class pet {
+  + id
+  + client_id
+}
+
+class medical_record {
+  + id
+  + pet_id
+}
+
+class appointment {
+  + id
+  + pet_id
+  + veterinarian_id
+}
+
+class veterinarian {
+  + id
+}
+
+class treatment {
+  + id
+}
+
+class vaccine {
+  + id
+}
+
+class medical_record_treatment {
+  + id
+  + medical_record_id
+  + treatment_id
+}
+
+class medical_record_vaccine {
+  + id
+  + medical_record_id
+  + vaccine_id
+}
+
+class product {
+  + id
+}
+
+class invoice {
+  + id
+  + client_id
+}
+
+class invoice_detail {
+  + id
+  + invoice_id
+  + product_id
+}
+
+' --- RELATIONSHIPS ---
+
+client "1" *-- "many" pet
+pet "1" *-- "many" medical_record
+pet "1" *-- "many" appointment
+veterinarian "1" *-- "many" appointment
+
+medical_record "1" *-- "many" medical_record_treatment
+treatment "1" *-- "many" medical_record_treatment
+
+medical_record "1" *-- "many" medical_record_vaccine
+vaccine "1" *-- "many" medical_record_vaccine
+
+client "1" *-- "many" invoice
+invoice "1" *-- "many" invoice_detail
+product "1" *-- "many" invoice_detail
+
+@enduml

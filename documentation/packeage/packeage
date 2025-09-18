@@ -1,0 +1,38 @@
+@startuml
+title Veterinary Management System – Package Diagram
+
+' ==== Paquete: Entidades base ====
+package "Clients & Pets" {
+  class client
+  class pet
+  class species
+  class breed
+}
+
+' ==== Paquete: Atención médica ====
+package "Medical Care" {
+  class appointment
+  class medical_record
+  class treatment
+  class vaccine
+}
+
+' ==== Paquete: Facturación & Productos ====
+package "Invoicing & Products" {
+  class invoice
+  class invoice_detail
+  class product
+  class payment
+}
+
+' ==== Paquete: Seguridad & Administración ====
+package "Security & Admin" {
+  class user_account
+  class role
+  class veterinarian
+  class admin
+}
+
+
+
+@enduml

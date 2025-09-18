@@ -1,0 +1,101 @@
+@startuml
+!theme spacelab
+hide circle
+skinparam linetype ortho
+
+' ========================
+' ENTITIES
+' ========================
+entity Client {
+  *id_client : int
+  full_name : varchar
+  document : varchar
+  phone : varchar
+  email : varchar
+  address : varchar
+}
+
+entity Pet {
+  *id_pet : int
+  name : varchar
+  species : varchar
+  breed : varchar
+  gender : varchar
+  birth_date : date
+  color : varchar
+}
+
+entity MedicalRecord {
+  *id_record : int
+  date : date
+  description : text
+  diagnosis : text
+  treatment : text
+}
+
+entity Appointment {
+  *id_appointment : int
+  date : date
+  time : time
+  reason : text
+  status : varchar
+}
+
+entity Veterinarian {
+  *id_vet : int
+  full_name : varchar
+  document : varchar
+  specialty : varchar
+  phone : varchar
+  email : varchar
+}
+
+entity Treatment {
+  *id_treatment : int
+  treatment_name : varchar
+  description : text
+  cost : decimal
+}
+
+entity Vaccine {
+  *id_vaccine : int
+  vaccine_name : varchar
+  description : text
+  dose : varchar
+  frequency : varchar
+}
+
+entity Product {
+  *id_product : int
+  product_name : varchar
+  category : varchar
+  price : decimal
+  stock : int
+}
+
+entity Invoice {
+  *id_invoice : int
+  date : date
+  total : decimal
+}
+
+entity InvoiceDetail {
+  *id_detail : int
+  quantity : int
+  subtotal : decimal
+}
+
+' ========================
+' RELATIONSHIPS WITH CARDINALITY
+' ========================
+Client ||--o{ Pet : "owns"
+Pet ||--o{ MedicalRecord : "has"
+Pet ||--o{ Appointment : "schedules"
+Veterinarian ||--o{ Appointment : "attends"
+MedicalRecord }o--o{ Treatment : "includes"
+MedicalRecord }o--o{ Vaccine : "records"
+Client ||--o{ Invoice : "issues"
+Invoice ||--o{ InvoiceDetail : "includes"
+Product ||--o{ InvoiceDetail : "contains"
+
+@enduml

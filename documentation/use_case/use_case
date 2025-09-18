@@ -1,0 +1,72 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor White
+  BorderColor #1f2937
+  ArrowColor #4b5563
+}
+skinparam ActorStyle awesome
+
+title Veterinary Management System – Use Case Diagram
+
+' ==== Actores principales ====
+actor "Client" as Client
+actor "Veterinarian" as Vet
+actor "Admin" as Admin
+actor "Billing System" as Billing
+
+' ==== Paquete: Mascotas y Atención Médica ====
+package "Pet & Medical Care" {
+  (Register Pet) as UC_RegisterPet
+  (Schedule Appointment) as UC_ScheduleAppt
+  (Attend Appointment) as UC_AttendAppt
+  (Create Medical Record) as UC_CreateRecord
+  (Add Treatment) as UC_AddTreatment
+  (Record Vaccine) as UC_RecordVaccine
+}
+
+' ==== Paquete: Facturación & Productos ====
+package "Invoicing & Products" {
+  (Generate Invoice) as UC_GenerateInvoice
+  (Add Product to Invoice) as UC_AddProduct
+  (Process Payment) as UC_ProcessPayment
+}
+
+' ==== Paquete: Administración ====
+package "Administration" {
+  (Manage Veterinarians) as UC_ManageVets
+  (Manage Products) as UC_ManageProducts
+  (Manage Clients) as UC_ManageClients
+}
+
+' ==== Relaciones de actores ====
+Client --> UC_RegisterPet
+Client --> UC_ScheduleAppt
+Client --> UC_ProcessPayment
+
+Vet --> UC_AttendAppt
+Vet --> UC_CreateRecord
+Vet --> UC_AddTreatment
+Vet --> UC_RecordVaccine
+
+Admin --> UC_ManageVets
+Admin --> UC_ManageProducts
+Admin --> UC_ManageClients
+
+Billing --> UC_GenerateInvoice
+Billing --> UC_AddProduct
+
+' ==== Relaciones include/extend ====
+UC_AttendAppt ..> UC_CreateRecord : <<include>>
+UC_CreateRecord ..> UC_AddTreatment : <<extend>>
+UC_CreateRecord ..> UC_RecordVaccine : <<extend>>
+UC_GenerateInvoice ..> UC_AddProduct : <<include>>
+UC_ProcessPayment ..> UC_GenerateInvoice : <<include>>
+
+legend right
+  == Legend ==
+  <<include>>: Reuses common functionality
+  <<extend>>: Optional/conditional flow
+endlegend
+@enduml

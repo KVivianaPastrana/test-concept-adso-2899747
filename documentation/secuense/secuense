@@ -1,0 +1,27 @@
+@startuml
+title Veterinary Appointment – Sequence Diagram
+
+actor Client
+participant "Pet & Medical Care\n(Appointment)" as Appointment
+participant "Pet & Medical Care\n(Medical Record)" as Record
+participant "Invoicing\n(Invoice)" as Invoice
+participant "Invoicing\n(Payment)" as Payment
+participant "Billing System\n(Notification)" as Notification
+
+' === Flujo ===
+Client -> Appointment : Request appointment
+Appointment --> Client : Confirm appointment scheduled
+
+Client -> Appointment : Attend appointment
+Appointment -> Record : Create medical record
+Record --> Appointment : Record created
+
+Appointment -> Invoice : Generate invoice
+Invoice -> Payment : Process payment
+Payment --> Invoice : Payment confirmed
+Invoice --> Client : Invoice delivered
+
+Invoice -> Notification : Send confirmation
+Notification --> Client : Confirmation message delivered
+
+@enduml
